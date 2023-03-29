@@ -1,5 +1,5 @@
 {
-    "name": "player",
+    "name": "sprintplayer",
     "maps": [
         {
             "name": "Player",
@@ -36,6 +36,15 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "af9de8fc-5fca-4d54-80a8-5c4bf846bfa4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Sprint",
+                    "type": "Button",
+                    "id": "45fb3a2c-076e-4741-8a8c-d3290a8dccc9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -282,6 +291,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7452d0f7-af68-4200-9833-f46d8d950a36",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "81326d46-29de-4ac7-a83c-0a01f1e30ecf",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
