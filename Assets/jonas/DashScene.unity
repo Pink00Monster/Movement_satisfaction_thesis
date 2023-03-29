@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 33497328}
   - component: {fileID: 33497327}
   - component: {fileID: 33497330}
-  - component: {fileID: 33497329}
   - component: {fileID: 33497332}
   - component: {fileID: 33497331}
   - component: {fileID: 33497333}
@@ -213,23 +212,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &33497329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 33497326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ac8fb1799fd6744c8e8619c3d3ab141, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 33497332}
-  groundCheck: {fileID: 1752835666}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &33497330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,8 +239,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 33497329}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 33497333}
+        m_TargetAssemblyTypeName: PlayerMovementDash, Assembly-CSharp
         m_MethodName: Move
         m_Mode: 0
         m_Arguments:
@@ -281,8 +263,8 @@ MonoBehaviour:
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 33497329}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 33497333}
+        m_TargetAssemblyTypeName: PlayerMovementDash, Assembly-CSharp
         m_MethodName: Jump
         m_Mode: 0
         m_Arguments:
@@ -336,7 +318,19 @@ MonoBehaviour:
     m_ActionId: 69c0ed20-9f3f-48da-bbfc-12bb89876976
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 33497333}
+        m_TargetAssemblyTypeName: PlayerMovementDash, Assembly-CSharp
+        m_MethodName: Dash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 45fb3a2c-076e-4741-8a8c-d3290a8dccc9
     m_ActionName: Player/Sprint[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
@@ -403,11 +397,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5875c3fa2147641bfed241c8a9f138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  groundCheck: {fileID: 0}
+  rb: {fileID: 33497332}
+  groundCheck: {fileID: 1752835666}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
+  dashDistance: 2
+  dashDelay: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
