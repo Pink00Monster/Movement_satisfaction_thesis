@@ -1,16 +1,19 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovementDash : MonoBehaviour
 {
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
 
     private float horizontal;
-    private float speed = 8f;
-    private float jumpingPower = 16f;
+    private float speed = 4f;
+    private float jumpingPower = 8f;
     private bool isFacingRight = true;
+    public float dashDistance = 5f;
+    private bool isDashing = false;
+
 
     void Update()
     {
