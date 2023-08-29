@@ -1,19 +1,24 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
-public class PlayerMovementDash : MonoBehaviour
+public class DashMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
 
+    //Moving
     private float horizontal;
     private float speed = 4f;
     private float jumpingPower = 8f;
     private bool isFacingRight = true;
-    public float dashDistance = 5f;
-    private bool isDashing = false;
 
+    //Dashing
+    public float dashDistance = 1f;
+    public int dashDelay = 1;
+    private bool isDashing = false;
+    private float dashTime = 0;
 
     void Update()
     {
@@ -30,6 +35,11 @@ public class PlayerMovementDash : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+
+        if (isDashing && (Time.time - dashTime >= dashDelay))
+        {
+            isDashing = false;
+        }
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -61,5 +71,21 @@ public class PlayerMovementDash : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         horizontal = context.ReadValue<Vector2>().x;
+    }
+
+    public void Dash(InputAction.CallbackContext context)
+    {
+        if (!isDashing) {
+            if (isFacingRight)
+            {
+                rb.position = new Vector2(rb.position.x + dashDistance, rb.position.y);
+            }
+            else
+            {
+                rb.position = new Vector2(rb.position.x - dashDistance, rb.position.y);
+            }
+            dashTime = Time.time;
+            isDashing = true;
+        }
     }
 }

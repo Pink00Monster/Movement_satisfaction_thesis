@@ -7,9 +7,10 @@ public class PlayerMovementSprint : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
 
+    public float speed = 5;
+    public float jumpingPower = 3;
+
     private float horizontal;
-    private float speed = 8f;
-    private float jumpingPower = 16f;
     private bool isFacingRight = true;
 
     void Update()
@@ -22,6 +23,7 @@ public class PlayerMovementSprint : MonoBehaviour
         {
             Flip();
         }
+
     }
 
     private void FixedUpdate()
