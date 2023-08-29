@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 
-public class PlayerMovementDash : MonoBehaviour
+public class DashMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
     public Transform groundCheck;
