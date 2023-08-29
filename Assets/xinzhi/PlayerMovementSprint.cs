@@ -7,8 +7,8 @@ public class PlayerMovementSprint : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
 
-    public float speed;
-    public float jumpingPower;
+    public float speed = 5;
+    public float jumpingPower = 3;
 
     private float horizontal;
     private bool isFacingRight = true;

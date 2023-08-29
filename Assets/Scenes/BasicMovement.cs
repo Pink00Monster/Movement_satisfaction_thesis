@@ -7,15 +7,13 @@ public class BasicMovement: MonoBehaviour
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
-    public float maxSpeed;
-    public float acceleration;
-    public float jumpingPower;
+    public float jumpingPower = 6f;
+    
+    public float speed = 4f;
 
     //Moving
-    private float speed;
     private float horizontal;
     private bool isFacingRight = true;
-    private float update = 0.0f;
 
     void Update()
     {
@@ -26,16 +24,6 @@ public class BasicMovement: MonoBehaviour
         else if (isFacingRight && horizontal < 0f)
         {
             Flip();
-        }
-
-        update += Time.deltaTime;
-        if (update > 1.0f)
-        {
-            update = 0.0f;
-
-            if (speed > 0) {
-                speed = speed--;
-            }
         }
     }
 
@@ -72,12 +60,6 @@ public class BasicMovement: MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        if (maxSpeed > (speed + acceleration)) {
-            speed = acceleration + speed;
-        } else {
-            speed = maxSpeed;
-        }
-
         horizontal = context.ReadValue<Vector2>().x;
     }
 }
