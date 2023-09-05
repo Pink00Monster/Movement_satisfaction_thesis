@@ -10,12 +10,12 @@ public class DashMovement : MonoBehaviour
 
     //Moving
     private float horizontal;
-    private float speed = 4f;
-    private float jumpingPower = 8f;
+    public float speed = 4;
+    public float jumpingPower = 8;
     private bool isFacingRight = true;
 
     //Dashing
-    public float dashDistance = 1f;
+    public float dashDistance = 4;
     public int dashDelay = 1;
     private bool isDashing = false;
     private float dashTime = 0;
