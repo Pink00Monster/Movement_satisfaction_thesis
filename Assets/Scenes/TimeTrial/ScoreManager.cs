@@ -27,7 +27,7 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (score >= 4 && !done)
+        if (score >= 7 && !done)
         {
             done = true;
             textScore.text = minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliseconds.ToString("000") + "\nScore: " + score.ToString();
