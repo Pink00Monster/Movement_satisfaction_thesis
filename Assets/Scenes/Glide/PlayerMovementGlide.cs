@@ -19,6 +19,7 @@ public class PlayerMovementGlide : MonoBehaviour
     private float _initialGravityScale;
     private Rigidbody2D _rigidbody;
 
+    private bool isGliding = false;
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -46,14 +47,26 @@ public class PlayerMovementGlide : MonoBehaviour
 
     public void Glide(InputAction.CallbackContext context)
     {
-        if (_rigidbody.velocity.y <= 0)
+        isGliding = !isGliding;
+        
+        if (isGliding)
         {
-            _rigidbody.gravityScale = 0;
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, y: -glidingspeed);
+            if (IsGrounded())
+            {
+                _rigidbody.gravityScale = 9.8f;
+                _rigidbody.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+            }
+            else
+            {
+                _rigidbody.gravityScale = 0;
+                _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, y: -glidingspeed);
+            }
+            
         }
         else
         {
-            _rigidbody.gravityScale = _initialGravityScale;
+            _rigidbody.gravityScale = 9.8f;
+            _rigidbody.velocity = new Vector2(horizontal * speed, rb.velocity.y);
         }
     }
 
@@ -73,7 +86,7 @@ public class PlayerMovementGlide : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, 1f, groundLayer);
     }
 
     private void Flip()
