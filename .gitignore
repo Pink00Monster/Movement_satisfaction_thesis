@@ -58,8 +58,3 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-*.unity
-*.asset
-*.meta
-*.asset
-*.dwlt
