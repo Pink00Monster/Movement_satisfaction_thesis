@@ -3,15 +3,20 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovementSprint : MonoBehaviour
 {
+    public float speed = 4;
+    public float sprintSpeed = 8;
+    public float jumpingPower = 8;
     public Rigidbody2D rb;
-    public Transform groundCheck;
     public LayerMask groundLayer;
 
-    public float speed = 5;
-    public float jumpingPower = 3;
+    public Transform groundCheck;
 
     private float horizontal;
     private bool isFacingRight = true;
+
+    void Start(){
+         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+    }
 
     void Update()
     {
@@ -28,7 +33,11 @@ public class PlayerMovementSprint : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        if (Input.GetButton("Sprint")) {
+            rb.velocity = new Vector2(horizontal * sprintSpeed, rb.velocity.y);
+        } else {
+            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        }
     }
 
     public void Jump(InputAction.CallbackContext context)
