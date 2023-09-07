@@ -7,6 +7,7 @@ public class DashMovement : MonoBehaviour
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public Animator animator;
 
     //Moving
     private float horizontal;
@@ -22,6 +23,24 @@ public class DashMovement : MonoBehaviour
 
     void Update()
     {
+
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+
+        if (IsGrounded())
+        {
+            animator.SetBool("Jumping", false);
+            animator.SetBool("Falling", false);
+        }
+        else if (!IsGrounded() && rb.velocity.y < 0)
+        {
+            animator.SetBool("Falling", true);
+            animator.SetBool("Jumping", false);
+        }
+        else if (!IsGrounded() && rb.velocity.y > 0)
+        {
+            animator.SetBool("Jumping", true);
+        }
+
         if (!isFacingRight && horizontal > 0f)
         {
             Flip();
