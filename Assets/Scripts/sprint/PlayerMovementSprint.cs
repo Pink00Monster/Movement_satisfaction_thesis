@@ -14,6 +14,7 @@ public class PlayerMovementSprint : MonoBehaviour
     private float horizontal;
     private bool isFacingRight = true;
     private bool isSprinting = false;
+    public Animator animator;
 
     void Start(){
          rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
@@ -21,6 +22,24 @@ public class PlayerMovementSprint : MonoBehaviour
 
     void Update()
     {
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+
+        if (IsGrounded())
+        {
+            animator.SetBool("Jumping", false);
+            animator.SetBool("Falling", false);
+        }
+        else if (!IsGrounded() && rb.velocity.y < 0)
+        {
+            animator.SetBool("Falling", true);
+            animator.SetBool("Jumping", false);
+        }
+        else if (!IsGrounded() && rb.velocity.y > 0)
+        {
+            animator.SetBool("Jumping", true);
+        }
+
+
         if (!isFacingRight && horizontal > 0f)
         {
             Flip();
@@ -75,9 +94,13 @@ public class PlayerMovementSprint : MonoBehaviour
     public void Sprint(InputAction.CallbackContext context)
     {
         isSprinting = !isSprinting;
-        if(isSprinting)
+        if (isSprinting)
         {
-
+            rb.velocity = new Vector2(horizontal * sprintSpeed, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
         }
     }
 }

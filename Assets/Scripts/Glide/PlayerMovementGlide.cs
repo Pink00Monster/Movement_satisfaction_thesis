@@ -6,28 +6,46 @@ public class PlayerMovementGlide : MonoBehaviour
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public Animator animator;
 
-    public float speed = 5;
-    public float jumpingPower = 3;
+    public float speed = 4;
+    public float jumpingPower = 8;
 
     private float horizontal;
     private bool isFacingRight = true;
 
     [SerializeField]
-    private float glidingspeed;
+    private float glidingspeed = 1;
 
     private float _initialGravityScale;
     private Rigidbody2D _rigidbody;
 
     private void Start()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _initialGravityScale = _rigidbody.gravityScale;
+        _initialGravityScale = rb.gravityScale;
     }
 
 
     void Update()
     {
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+
+        if (IsGrounded())
+        {
+            animator.SetBool("Jumping", false);
+            animator.SetBool("Falling", false);
+        }
+        else if (!IsGrounded() && rb.velocity.y < 0)
+        {
+            animator.SetBool("Falling", true);
+            animator.SetBool("Jumping", false);
+        }
+        else if (!IsGrounded() && rb.velocity.y > 0)
+        {
+            animator.SetBool("Jumping", true);
+        }
+
+
         if (!isFacingRight && horizontal > 0f)
         {
             Flip();
@@ -46,19 +64,21 @@ public class PlayerMovementGlide : MonoBehaviour
 
     public void Glide(InputAction.CallbackContext context)
     {
-        if (_rigidbody.velocity.y <= 0)
+        if (context.performed && !IsGrounded())
         {
-            _rigidbody.gravityScale = 0;
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, y: -glidingspeed);
+            rb.gravityScale = 0;
+            rb.velocity = new Vector2(_rigidbody.velocity.x, y: -glidingspeed);
         }
-        else
+        if (context.canceled)
         {
-            _rigidbody.gravityScale = _initialGravityScale;
+            rb.gravityScale = _initialGravityScale;
+            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+
         }
     }
 
 
-    /*public void Jump(InputAction.CallbackContext context)
+    public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && IsGrounded())
         {
@@ -69,7 +89,8 @@ public class PlayerMovementGlide : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
-    }*/
+    }
+
 
     private bool IsGrounded()
     {
